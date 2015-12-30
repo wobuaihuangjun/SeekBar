@@ -64,11 +64,6 @@ public class SeekBar extends android.widget.SeekBar {
         init();
     }
 
-    public SeekBar(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init();
-    }
-
     @Override
     public void setPadding(int left, int top, int right, int bottom) {
         if (isSetPadding) {
