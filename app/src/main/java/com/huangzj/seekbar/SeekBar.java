@@ -11,8 +11,11 @@ import android.graphics.Paint.FontMetrics;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
 
+/**
+ * 进度选择控件
+ * Created by huangzj on 2015/12/28.
+ */
 public class SeekBar extends android.widget.SeekBar {
 
     private int oldPaddingTop;
@@ -64,11 +67,6 @@ public class SeekBar extends android.widget.SeekBar {
     public SeekBar(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init();
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return super.onTouchEvent(event);
     }
 
     @Override
