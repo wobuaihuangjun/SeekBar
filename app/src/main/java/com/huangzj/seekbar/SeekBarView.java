@@ -105,10 +105,18 @@ public class SeekBarView extends View {
     private int padding = 4;
 
     private void drawProgress(Canvas canvas) {
+
+        float progress = totalProgress / 100 * currentValue;
+
         paint.setColor(Color.RED);// 设置红色
-        RectF oval3 = new RectF(paddingLeft + minTextWidth + padding, baseLine + seekBarHeight / 2,
-                200, 300);// 设置个新的长方形
+        RectF oval3 = new RectF(paddingLeft + minTextWidth + padding, baseLine - seekBarHeight / 2,
+                paddingLeft + minTextWidth + padding + progress, baseLine - seekBarHeight / 2);// 设置个新的长方形
         canvas.drawRoundRect(oval3, 20, 15, paint);//第二个参数是x半径，第三个参数是y半径
+        paint.setColor(Color.BLACK);
+        RectF oval4 = new RectF(paddingLeft + minTextWidth + padding + progress, baseLine - seekBarHeight / 2,
+                mViewWidth - maxTextWidth - paddingRight - padding, baseLine - seekBarHeight / 2);// 设置个新的长方形
+        canvas.drawRoundRect(oval4, 20, 15, paint);//第二个参数是x半径，第三个参数是y半径
+
     }
 
     @Override
@@ -146,16 +154,18 @@ public class SeekBarView extends View {
             @Override
             public void draw(Canvas canvas) {
                 mViewHeight = getHeight();
-                int width = getWidth();
+                mViewWidth = getWidth();
 
                 maxTextWidth = paint.measureText(maxText);
                 minTextWidth = paint.measureText(minText);
 
                 Paint.FontMetricsInt fmi = paint.getFontMetricsInt();
-                baseLine = (float) (mViewWidth / 2.0 - (fmi.bottom / 2.0 + fmi.top / 2.0));
+                baseLine = (float) (mViewHeight / 2.0 - (fmi.bottom / 2.0 + fmi.top / 2.0));
                 // 绘制首尾的标注文字
                 canvas.drawText(minText, paddingLeft + (float) (minTextWidth / 2.0), baseLine, paint);
-                canvas.drawText(maxText, width - (float) (maxTextWidth / 2.0) - paddingRight, baseLine, paint);
+                canvas.drawText(maxText, mViewWidth - (float) (maxTextWidth / 2.0) - paddingRight, baseLine, paint);
+
+                totalProgress = mViewWidth - (maxTextWidth + minTextWidth + padding * 2 + paddingRight + paddingLeft);
             }
 
             @Override
